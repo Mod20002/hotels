@@ -3,15 +3,35 @@ const jwt = require("jsonwebtoken");
 const db = require("../models/db");
 
 exports.register = async (req, res, next) => {
-  const { firstName, lastName, email, phone, userName, password } = req.body;
+  const {
+    firstName,
+    lastName,
+    email,
+    phone,
+    userName,
+    password,
+    confirmPassword,
+  } = req.body;
   try {
     // validation
-    if (!(firstName && lastName && email && phone && userName && password)) {
+    if (
+      !(
+        firstName &&
+        lastName &&
+        email &&
+        phone &&
+        userName &&
+        password &&
+        confirmPassword
+      )
+    ) {
       return next(new Error("Fulfill all inputs"));
     }
-   
+    if (confirmPassword !== password) {
+      throw new Error("confirm password not match");
+    }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(password, 8);
     console.log(hashedPassword);
     const data = {
       firstName,
@@ -19,7 +39,7 @@ exports.register = async (req, res, next) => {
       email,
       phone,
       userName,
-      password:hashedPassword
+      password: hashedPassword,
     };
 
     const rs = await db.user.create({ data });

@@ -1,24 +1,30 @@
+// TodoCard.jsx
 import axios from "axios";
 import React from "react";
 
 export default function TodoCard(props) {
   const { el, openModal, setTrigger } = props;
 
-  const statusColor = el.status==='PENDING' ? 'bg-pink-300' 
-    : el.status==='DOING' ? 'bg-blue-300' : 'bg-lime-300'
-  const hdlDelete = async e => {
+  const statusColor =
+    el.status === "PENDING"
+      ? "bg-pink-300"
+      : el.status === "DOING"
+      ? "bg-blue-300"
+      : "bg-lime-300";
+
+  const hdlDelete = async (e) => {
     try {
-      e.stopPropagation()
-      const token = localStorage.getItem('token')
+      e.stopPropagation();
+      const token = localStorage.getItem("token");
       let rs = await axios.delete(`http://localhost:8889/todos/${el.id}`, {
-        headers : { Authorization : `Bearer ${token}`}
-      })
-      alert('Delete successful') 
-      setTrigger(prv=>!prv)
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      alert("Delete successful");
+      setTrigger((prv) => !prv);
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
-  }
+  };
 
   return (
     <div
@@ -28,12 +34,16 @@ export default function TodoCard(props) {
     >
       <div className="card-body">
         <div className="flex justify-between">
-          <h2 className="card-title">{el.title}</h2>
-          <div className="badge badge-secondary" onClick={hdlDelete}>delete</div>
+          <h2 className="card-title">R.Number : {el.title}</h2>
+          <h2 className="card-title">Price : {el.price}</h2>
+          <div className="badge badge-secondary" onClick={hdlDelete}>
+            delete
+          </div>
         </div>
         <div className="flex">
-          <p>Due-date : {new Date(el.dueDate).toDateString()}</p>
-          <p className="text-right">Status : {el.status}</p>
+          <p>Check-in: {new Date(el.dueInt).toDateString()}</p>
+          <p>Check-Out: {new Date(el.dueOut).toDateString()}</p>
+          <p className="text-right">Status: {el.status}</p>
         </div>
       </div>
     </div>

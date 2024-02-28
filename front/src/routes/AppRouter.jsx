@@ -3,9 +3,10 @@ import LoginForm from '../layout/LoginForm'
 import RegisterForm from '../layout/RegisterForm'
 import useAuth from '../hooks/useAuth'
 import Header from '../layout/Header'
-import UserHome from '../layout/UserHome'
-import NewTodoForm from'../layout/NewTodoForm'
-
+import NewTodoForm from '../layout/BookingForm'
+import HomePage from '../layout/HomePage'
+import Room from '../layout/Room'
+import List from '../layout/List'
 
 const guestRouter = createBrowserRouter([
   {
@@ -29,8 +30,10 @@ const userRouter = createBrowserRouter([
       <Outlet />
     </>,
     children : [
-      { index: true, element: <UserHome /> },
-      { path: '/new', element: <NewTodoForm/>}
+      { index: true, element: <HomePage /> },
+      { path: '/new', element: <NewTodoForm />},
+      { path: '/room', element: <Room />},
+      { path: '/list', element: <List />},
     ]
   }
 ])

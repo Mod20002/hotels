@@ -2,13 +2,15 @@ import {Link, useNavigate} from 'react-router-dom'
 import useAuth from '../hooks/useAuth';
 
 const guestNav = [
-  { to : '/', text: 'Sing In' },
-  { to : '/register', text: 'Sing Up' },
+  { to : '/', text: 'Login' },
+  { to : '/register', text: 'Register' },
 ]
 
 const userNav = [
-  { to : '/', text: 'Home' },
-  { to : '/new', text: 'New Todo' },
+  { to : '/', text: 'HOME' },
+  { to : '/room', text: 'ACCOMMODATION' },
+  { to : '/new', text: 'BOOKING' },
+  { to : '/list', text: 'HISTORY BOOKING' },
 ]
 
 export default function Header() {
@@ -25,7 +27,7 @@ export default function Header() {
   return (
     <div className="navbar bg-pink-400 text-neutral">
       <div className="flex-1">
-        <a className="btn btn-ghost text-xl">Hello, {user?.id ? user.username : 'Guest'}</a>
+        <a className="btn btn-ghost text-xl">Hello, {user?.id ? user.userName : 'Guest'}</a>
       </div>
       <div className="flex-none">
         <ul className="menu menu-horizontal px-1">

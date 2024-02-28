@@ -6,7 +6,7 @@ function App() {
 
   if(loading) {
     return (
-      <p className="text-4xl text-primary">Loading..</p>
+      <p className="loading loading-spinner text-error">Loading..</p>
     )
   }
 

@@ -8,7 +8,7 @@ export default {
   ],
   theme: {
     fontFamily: {
-      sans: ['Nanum Gothic', 'sans-serif'],
+      sans: ['Krub', 'sans-serif'],
     },
     extend: {},
   },

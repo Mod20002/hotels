@@ -10,78 +10,82 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// model User {
+//   id       Int     @id @default(autoincrement())
+//   username String  @unique @db.VarChar(30)
+//   password String  @db.VarChar(72)
+//   email    String?
+//   todos    Todo[]
+
+//   @@map("users")
+// }
+
 model User {
-  id        Int       @id @default(autoincrement())
+  id        Int     @id @default(autoincrement())
   firstName String?
   lastName  String?
-  email     String    @unique
+  email     String?
   phone     String?
-  userName  String    @unique
-  password  String?
-  Hotels    Hotels[]
-  Booking   Booking[]
-  Rooms     Rooms[]
+  userName  String  @unique @db.VarChar(30)
+  password  String  @db.VarChar(72)
+  // Hotels    Hotels[]
+  // Booking   Booking[]
+  // Rooms     Rooms[]
+  Todo      Todo[]
 
   @@map("users")
 }
 
-model Hotels {
-  id        Int       @id @default(autoincrement())
-  hotelName String?
-  rating    String
-  price     String
-  users     User      @relation(fields: [userId], references: [id])
-  userId    Int
-  Booking   Booking[]
+model Todo {
+  id        Int      @id @default(autoincrement())
+  title     String   @db.VarChar(150)
+  status    Status   @default(PENDING)
+  dueInt    DateTime @map("due_int") @db.Date
+  dueOut    DateTime @map("due_out") @db.Date
+  price     String   @map("price") @db.VarChar(15)
+  userId    Int      @map("user_id")
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp(0)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamp(0)
 
-  @@map("hotelss")
+  @@map("todos")
 }
 
-model Booking {
-  id             Int      @id @default(autoincrement())
-  CheckInDate    DateTime @default(now()) @map("check_in_date") @db.Timestamp(0)
-  CheckOutDate   DateTime @default(now()) @map("check_out_date") @db.Timestamp(0)
-  NumRooms       String
-  PaymentDetails String
-  viewBooking    String
-  Modify         String
-  users          User     @relation(fields: [userId], references: [id])
-  userId         Int
-  hotelss        Hotels   @relation(fields: [hotelsId], references: [id])
-  hotelsId       Int
-
-  paymentId Int? @map("payment_id")
-
-  @@map("bookings")
+enum Status {
+  PENDING
+  DOING
+  DONE
 }
 
-enum Statusroom {
-  emptyroom
-  occupiedroom
-}
+// model Booking {
+//   id             Int      @id @default(autoincrement())
+//   CheckInDate    DateTime @map("check_in_date") @db.Date
+//   CheckOutDate   DateTime @map("check_out_date") @db.Date
+//   NumRooms       String   @map("num_rooms") @db.VarChar(45)
+//   PaymentDetails String
+
+//   // users  User @relation(fields: [userId], references: [id], onDelete: Cascade)
+//   // userId Int  @map("user_id")
+
+//   paymentId Int? @map("payment_id")
+
+//   @@map("bookings")
+// }
 
 model Rooms {
-  id        Int        @id @default(autoincrement())
-  romNumber String
-  roomType  String
-  Price     String
-  status    Statusroom
-  users     User       @relation(fields: [userId], references: [id])
-  userId    Int
+  id      Int    @id @default(autoincrement())
+  roomNum String @map("room_num")
+  Price   String @map("price") @db.VarChar(15)
+  // users   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  // userId  Int
 
   @@map("rooms")
 }
 
-enum PayStatus {
-  completed
-  awaitingAction
-}
-
 model Payment {
-  id            Int       @id @default(autoincrement())
+  id            Int     @id @default(autoincrement())
   paymentMethod String?
   paymentAmout  String
-  status        PayStatus
 
   bookingId Int? @map("booking_id")
 
