@@ -24,7 +24,7 @@ export default function Room() {
               </p>
               <div className="card-actions">
                 <button className="bg-pink-400 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-4">
-                  <a href="/new">Book</a>
+                  <a href='/new'>Book</a>
                 </button>
               </div>
             </div>
@@ -49,7 +49,7 @@ export default function Room() {
               </p>
               <div className="card-actions">
                 <button className="bg-pink-400 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-4">
-                  <a href="/new">Book</a>
+                  <a href='/new'>Book</a>
                 </button>
               </div>
             </div>
@@ -73,7 +73,7 @@ export default function Room() {
               </p>
               <div className="card-actions">
                 <button className="bg-pink-400 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-4">
-                  <a href="/new">Book</a>
+                  <a href='/new'>Book</a>
                 </button>
               </div>
             </div>
